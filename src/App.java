@@ -4,18 +4,44 @@ import java.util.Locale;
 public class App {
     public static void main(String[] args) throws Exception {
       Scanner inputs = new Scanner(System.in).useLocale(Locale.US);
-      int quantityProducts, quantityLocations;
-
-      System.out.print("Please enter the quantity of products: ");
-      quantityProducts = inputs.nextInt();
-
-      System.out.print("Please enter the quantity of locations: ");
-      quantityLocations = inputs.nextInt();
-
-      // array of products
-      // matrix of quantitys 
+      int quantityProducts, quantityLocations, quantityMatrix[][], requirementsMatrix[][], productMean;
+      String line, productsArray[];
 
       try {
+
+        System.out.print("Please enter the quantity of products: ");
+        quantityProducts = inputs.nextInt();
+
+        System.out.print("Please enter the quantity of locations: ");
+        quantityLocations = inputs.nextInt();
+
+        System.out.println("Please enter list of product codes separated by space: ");
+        line = inputs.nextLine();
+        productsArray = readArray(line);
+
+        System.out.println("Please enter the data from the table of quantities in the warehouse: ");
+        line = inputs.nextLine();
+        quantityMatrix = readMatrix(line, quantityLocations, quantityProducts);
+
+        System.out.println("Please enter the data from the table of minimum quantities in the warehouse: ");
+        line = inputs.nextLine();
+        requirementsMatrix = readMatrix(line, quantityLocations, quantityProducts);
+
+        for (int i = 0; i < quantityLocations; i++) {
+          for (int j = 0; j < quantityProducts; j++) {
+            if (requirementsMatrix[i][j] < quantityMatrix[i][j]) {
+              System.out.println("It is necessary to request products of code " + productsArray[j] + " at the location " + i);
+            }
+          }
+        }
+
+        for (int j = 0; j < quantityProducts; j++) {
+          for (int i = 0; i < quantityLocations; i++) {
+
+            // complete
+          }
+        }
+
 
       } catch (Exception ex) {
         System.out.println("An error has ocurred" + ex.getMessage());
