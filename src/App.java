@@ -4,7 +4,8 @@ import java.util.Locale;
 public class App {
     public static void main(String[] args) throws Exception {
       Scanner inputs = new Scanner(System.in).useLocale(Locale.US);
-      int quantityProducts, quantityLocations, quantityMatrix[][], requirementsMatrix[][], productMean;
+      int quantityProducts, quantityLocations, quantityMatrix[][], requirementsMatrix[][];
+      float productMean;
       String line, productsArray[];
 
       try {
@@ -14,6 +15,8 @@ public class App {
 
         System.out.print("Please enter the quantity of locations: ");
         quantityLocations = inputs.nextInt();
+
+        inputs.nextLine();
 
         System.out.println("Please enter list of product codes separated by space: ");
         line = inputs.nextLine();
@@ -29,17 +32,20 @@ public class App {
 
         for (int i = 0; i < quantityLocations; i++) {
           for (int j = 0; j < quantityProducts; j++) {
-            if (requirementsMatrix[i][j] < quantityMatrix[i][j]) {
+            if (quantityMatrix[i][j] < requirementsMatrix[i][j]) {
               System.out.println("It is necessary to request products of code " + productsArray[j] + " at the location " + i);
             }
           }
         }
 
         for (int j = 0; j < quantityProducts; j++) {
+          productMean = 0;
           for (int i = 0; i < quantityLocations; i++) {
-
-            // complete
+            productMean += quantityMatrix[i][j];            
           }
+          productMean = productMean / quantityLocations;
+
+          System.out.println("The average quantity in the warehouse of the product " + productsArray[j] + " is: " + productMean);
         }
 
 
